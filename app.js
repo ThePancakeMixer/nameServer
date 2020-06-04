@@ -9,7 +9,7 @@ const RedisStore = require('connect-redis')(session)
 const app = express()
 app.use(cors({}));
 app.use(express.json());
-const port = 5000
+const port = 80
 const redisClient = redis.createClient()
 
 const sess = {
