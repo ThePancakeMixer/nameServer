@@ -4,10 +4,9 @@
 /node_modules
 /.pnp
 .pnp.js
-.serverConfig.js
 # testing
 /coverage
-
+serverConfig.js
 # production
 /build
 

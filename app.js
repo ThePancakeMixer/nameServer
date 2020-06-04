@@ -32,7 +32,7 @@ if (err) {
 }
 });
 
-const buildPath = '/Users/toaster/Projects/my-app/build'
+const buildPath = '../my-app/build'
 app.use(express.static(buildPath));
 
 
