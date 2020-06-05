@@ -75,7 +75,7 @@ function isEmptyOrSpaces(str){
 
 let getTotal = function(req,res){
     let name = req.body.name
-    if(isEmptyOrSpaces(name) || name.length>25){
+    if(isEmptyOrSpaces(name) || name.length==0 || name.length>25){
         res.send({
             one: 'Name must be between 1 and 25 characters long'
         })
@@ -121,7 +121,7 @@ app.post('/addName',(req,res) =>
     request.on('returnValue', function(paramaterName, value,metadta){
         console.log(paramaterName + ' = ' + value)
         let ret = {
-            one: value + " people said fuck " + name,
+            one: value + (value>1?" people":"person") + " said fuck " + name,
         }
         res.send(ret)
     })
