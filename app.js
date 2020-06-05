@@ -70,18 +70,13 @@ app.get('/getTopFive', function(req,res){
 })
 
 function isEmptyOrSpaces(str){
-    return str === null || str.match(/^ *$/) !== null;
+    if(str === null)
+        return
+    return str.match(/^ *$/) !== null;
 }
 
 let getTotal = function(req,res){
-    let name = req.body.name
-    if(isEmptyOrSpaces(name) || name.length==0 || name.length>25){
-        res.send({
-            one: 'Name must be between 1 and 25 characters long'
-        })
-        return
-    }
-    
+    let name = req.body.name    
     let request = new Request('GetTotal',function(error){
         if(error){
             console.log(error)
@@ -102,12 +97,20 @@ let getTotal = function(req,res){
 }
 app.post('/addName',(req,res) => 
 {
+    let name = req.body.name;
+    if(isEmptyOrSpaces(name) || name.length===0 || name.length>25){
+        res.send({
+            one: 'Name must be between 1 and 25 characters long'
+        })
+        return;
+    }
+
     if(req.session.name){
         getTotal(req,res)
         return;
     }
+
     req.session.name = "touched"
-    let name = req.body.name
     console.log(req.session.id);
 
     let request = new Request('AddName',function(error){
@@ -121,7 +124,7 @@ app.post('/addName',(req,res) =>
     request.on('returnValue', function(paramaterName, value,metadta){
         console.log(paramaterName + ' = ' + value)
         let ret = {
-            one: value + (value>1?" people":"person") + " said fuck " + name,
+            one: value + (value>1?" people":" person") + " said fuck " + name,
         }
         res.send(ret)
     })
